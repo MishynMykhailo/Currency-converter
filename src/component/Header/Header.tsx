@@ -1,42 +1,26 @@
-import React, { useState, useEffect } from "react";
-import {
-  monobankData,
-  NbuDataCash,
-} from "../../services/ApiServices/ApiServices";
+import React from "react";
 import s from "./Header.module.css";
 
-const Header: React.FC = () => {
-  const [nbuCurrency, setNbuCurrency] = useState([]);
-  useEffect(() => {
-    NbuDataCash().then((data) => {
-      setNbuCurrency(
-        data.filter((item: { r030: number }) => {
-          return item.r030 === 840 || item.r030 === 978;
-        })
-      );
-    });
-  }, []);
-  console.log(nbuCurrency);
+interface IProps {
+  nbuCurrency: { r030: string; cc: string; rate: number }[];
+}
+
+const Header: React.FC<IProps> = ({ nbuCurrency }) => {
   return (
     <header className={s.header}>
-      {/* <nav className={s.nav}>
-        <ul className={s.ul}>
-          <li className={s.li}>s</li>
-          <li className={s.li}>s</li>
-        </ul>
-      </nav> */}
-      <div>
+      <ul className={s.ul}>
         {nbuCurrency &&
           nbuCurrency.map(
-            (item: { r030: number; txt: string; rate: number; cc: string }) => {
+            (item: { r030: string; cc: string; rate: number }) => {
               return (
-                <>
-                  <li>{}</li>
-                </>
+                <li className={s.li} key={item.r030}>
+                  <p className={s.p}>{item.cc}</p>
+                  <p className={s.p}>{item.rate.toFixed(2)}</p>
+                </li>
               );
             }
           )}
-      </div>
+      </ul>
     </header>
   );
 };

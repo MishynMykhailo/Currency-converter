@@ -3,3 +3,13 @@
   border: 1px solid black;
   padding: 15px;
 }
+.ul {
+  display: flex;
+}
+.li {
+}
+.li:not(:last-child) {
+  margin-right: 10px;
+}
+.p {
+}
