@@ -21,8 +21,8 @@ const App: React.FC = () => {
   }, []);
   return (
     <Container>
-      {nbuCurrency && <Header nbuCurrency={nbuCurrency && nbuCurrency} />}
-      <Converter />
+      {nbuCurrency && <Header nbuCurrency={nbuCurrency} />}
+      {nbuCurrency && <Converter nbuCurrency={nbuCurrency} />}
     </Container>
   );
 };
