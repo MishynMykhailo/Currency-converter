@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import ConvertSection from "../ConvertSection/ConvertSection";
 import { convertValueFrom, convertValueTo } from "../helpers/convertValue";
 import s from "./Converter.module.css";
 
@@ -16,10 +17,44 @@ const Converter: React.FC<IProps> = ({ nbuCurrency }) => {
   const [selectCurrencyValueFrom, setSelectCurrencyValueFrom] = useState("UAH");
   const [selectRateFrom, setSelectRateFrom] = useState<number>(0);
   const [selectCurrencyValueTo, setSelectCurrencyValueTo] = useState("UAH");
-  const [selectRateTo, setSelectRateTo] = useState<number>(0);
+  const [selectRateTo, setSelectRateTo] = useState(0);
   const [inputFrom, setInputFrom] = useState<number>(0);
   const [inputTo, setInputTo] = useState<number>(0);
 
+  useEffect(() => {
+    convertValueFrom(
+      inputFrom,
+      selectCurrencyValueFrom,
+      selectCurrencyValueTo,
+      selectRateFrom,
+      selectRateTo,
+      setInputFrom,
+      setInputTo
+    );
+  }, [
+    inputFrom,
+    selectCurrencyValueFrom,
+    selectCurrencyValueTo,
+    selectRateFrom,
+    selectRateTo,
+  ]);
+  useEffect(() => {
+    convertValueTo(
+      inputTo,
+      selectCurrencyValueFrom,
+      selectCurrencyValueTo,
+      selectRateFrom,
+      selectRateTo,
+      setInputFrom,
+      setInputTo
+    );
+  }, [
+    inputTo,
+    selectCurrencyValueFrom,
+    selectCurrencyValueTo,
+    selectRateFrom,
+    selectRateTo,
+  ]);
   const findRates = useCallback(
     (data: INbuCurrency[]) => {
       for (let i = 0; i < data.length; i += 1) {
@@ -43,32 +78,16 @@ const Converter: React.FC<IProps> = ({ nbuCurrency }) => {
     findRates(nbuCurrency);
   }, [findRates, nbuCurrency, selectCurrencyValueFrom, selectCurrencyValueTo]);
 
-  function onSelectHandler(e: React.ChangeEvent<HTMLSelectElement>) {
+  function onSelectHandler(e: React.ChangeEvent<HTMLSelectElement>): void {
     const { value, name } = e.target;
     switch (name) {
       case "from":
         setSelectCurrencyValueFrom(e.target.value);
-        convertValueFrom(
-          inputFrom,
-          value,
-          selectCurrencyValueTo,
-          selectRateFrom,
-          selectRateTo,
-          setInputFrom,
-          setInputTo
-        );
+
         break;
       case "to":
         setSelectCurrencyValueTo(e.target.value);
-        convertValueTo(
-          inputTo,
-          selectCurrencyValueFrom,
-          value,
-          selectRateFrom,
-          selectRateTo,
-          setInputFrom,
-          setInputTo
-        );
+
         break;
       default:
         setSelectCurrencyValueFrom("null");
@@ -77,7 +96,7 @@ const Converter: React.FC<IProps> = ({ nbuCurrency }) => {
     }
   }
 
-  function onInputHandler(e: React.ChangeEvent<HTMLInputElement>) {
+  function onInputHandler(e: React.ChangeEvent<HTMLInputElement>): void {
     const { value, name } = e.target;
     switch (name) {
       case "from":
@@ -113,34 +132,12 @@ const Converter: React.FC<IProps> = ({ nbuCurrency }) => {
     }
   }
   return (
-    <section className={s.section}>
-      <div className={s.div}>
-        <select name="from" onChange={(e) => onSelectHandler(e)}>
-          <option value="UAH">UAH</option>
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-        </select>
-        <input
-          value={inputFrom}
-          type="number"
-          name="from"
-          onChange={(e) => onInputHandler(e)}
-        />
-      </div>
-      <div className={s.div}>
-        <select name="to" onChange={(e) => onSelectHandler(e)}>
-          <option value="UAH">UAH</option>
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-        </select>
-        <input
-          value={inputTo}
-          type="text"
-          name="to"
-          onChange={(e) => onInputHandler(e)}
-        />
-      </div>
-    </section>
+    <ConvertSection
+      onSelectHandler={onSelectHandler}
+      onInputHandler={onInputHandler}
+      stateInputFrom={inputFrom}
+      stateInputTo={inputTo}
+    />
   );
 };
 
