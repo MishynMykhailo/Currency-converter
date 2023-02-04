@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import ConvertSection from "../ConvertSection/ConvertSection";
 import { convertValueFrom, convertValueTo } from "../helpers/convertValue";
-import s from "./Converter.module.css";
 
 interface INbuCurrency {
   r030: string;
@@ -21,40 +20,6 @@ const Converter: React.FC<IProps> = ({ nbuCurrency }) => {
   const [inputFrom, setInputFrom] = useState<number>(0);
   const [inputTo, setInputTo] = useState<number>(0);
 
-  useEffect(() => {
-    convertValueFrom(
-      inputFrom,
-      selectCurrencyValueFrom,
-      selectCurrencyValueTo,
-      selectRateFrom,
-      selectRateTo,
-      setInputFrom,
-      setInputTo
-    );
-  }, [
-    inputFrom,
-    selectCurrencyValueFrom,
-    selectCurrencyValueTo,
-    selectRateFrom,
-    selectRateTo,
-  ]);
-  useEffect(() => {
-    convertValueTo(
-      inputTo,
-      selectCurrencyValueFrom,
-      selectCurrencyValueTo,
-      selectRateFrom,
-      selectRateTo,
-      setInputFrom,
-      setInputTo
-    );
-  }, [
-    inputTo,
-    selectCurrencyValueFrom,
-    selectCurrencyValueTo,
-    selectRateFrom,
-    selectRateTo,
-  ]);
   const findRates = useCallback(
     (data: INbuCurrency[]) => {
       for (let i = 0; i < data.length; i += 1) {
@@ -82,12 +47,14 @@ const Converter: React.FC<IProps> = ({ nbuCurrency }) => {
     const { value, name } = e.target;
     switch (name) {
       case "from":
-        setSelectCurrencyValueFrom(e.target.value);
-
+        setSelectCurrencyValueFrom(value);
+        setInputFrom(0);
+        setInputTo(0);
         break;
       case "to":
-        setSelectCurrencyValueTo(e.target.value);
-
+        setSelectCurrencyValueTo(value);
+        setInputFrom(0);
+        setInputTo(0);
         break;
       default:
         setSelectCurrencyValueFrom("null");

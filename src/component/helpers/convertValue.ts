@@ -10,10 +10,10 @@ function convertValueFrom(
   fnSetFrom: (arg: number) => void,
   fnSetTo: (arg2: number) => void
 ): void {
-  console.log("from");
   if (currencyValueFrom === currencyValueTo) {
     fnSetFrom(Number(value));
     fnSetTo(Number(value));
+    return;
   } else if (
     currencyValueFrom === "USD" ||
     currencyValueFrom === "EUR" ||
@@ -24,11 +24,13 @@ function convertValueFrom(
       const result = Number(value) * price;
       fnSetFrom(fixedResult(value, 3));
       fnSetTo(fixedResult(result, 3));
+      return;
     } else if (rateFrom < rateTo) {
       const price = rateTo / rateFrom;
       const result = Number(value) / price;
       fnSetFrom(fixedResult(value, 3));
       fnSetTo(fixedResult(result, 3));
+      return;
     }
   }
 }
@@ -41,10 +43,10 @@ function convertValueTo(
   fnSetFrom: (arg: number) => void,
   fnSetTo: (arg2: number) => void
 ): void {
-  console.log("To");
   if (currencyValueTo === currencyValueFrom) {
     fnSetFrom(Number(value));
     fnSetTo(Number(value));
+    return;
   } else if (
     currencyValueFrom === "USD" ||
     currencyValueFrom === "EUR" ||
@@ -55,11 +57,13 @@ function convertValueTo(
       const result = Number(value / price);
       fnSetFrom(fixedResult(result, 3));
       fnSetTo(fixedResult(value, 3));
+      return;
     } else if (rateFrom < rateTo) {
       const price = rateTo / rateFrom;
       const result = Number(value * price);
       fnSetFrom(fixedResult(result, 3));
       fnSetTo(fixedResult(value, 3));
+      return;
     }
   }
 }

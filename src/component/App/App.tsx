@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import s from "./App.module.css";
+import Loader from "../Loader/Loader";
 import { NbuDataCash } from "../../services/ApiServices/ApiServices";
-
 import Header from "../Header/Header";
 import Container from "../Container/Container";
 import Converter from "../Converter/Converter";
@@ -20,10 +19,16 @@ const App: React.FC = () => {
     });
   }, []);
   return (
-    <Container>
-      {nbuCurrency && <Header nbuCurrency={nbuCurrency} />}
-      {nbuCurrency && <Converter nbuCurrency={nbuCurrency} />}
-    </Container>
+    <>
+      {nbuCurrency ? (
+        <Container>
+          <Header nbuCurrency={nbuCurrency} />
+          <Converter nbuCurrency={nbuCurrency} />
+        </Container>
+      ) : (
+        <Loader />
+      )}
+    </>
   );
 };
 
