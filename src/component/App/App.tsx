@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import s from "./App.module.css";
 import Loader from "../Loader/Loader";
 import { NbuDataCash } from "../../services/ApiServices/ApiServices";
 import Header from "../Header/Header";
@@ -22,8 +23,10 @@ const App: React.FC = () => {
     <>
       {nbuCurrency ? (
         <Container>
-          <Header nbuCurrency={nbuCurrency} />
-          <Converter nbuCurrency={nbuCurrency} />
+          <div className={s.div}>
+            <Header nbuCurrency={nbuCurrency} />
+            <Converter nbuCurrency={nbuCurrency} />
+          </div>
         </Container>
       ) : (
         <Loader />

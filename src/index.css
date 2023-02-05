@@ -1,4 +1,10 @@
 @import-normalize; /* bring in normalize.css styles */
+:root {
+  --main-color: #f6faff;
+  --secondary-color: rgb(79 111 255);
+  --secondary-color-light: rgb(75 111 255 / 20%);
+  --main-transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
 body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
@@ -8,8 +14,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: "Open Sans", sans-serif;
 }
 
 p,

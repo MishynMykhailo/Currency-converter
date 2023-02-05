@@ -1,27 +1,56 @@
 .div {
-  border: 1px solid #70757a;
+  border: 1px solid var(--secondary-color-light);
   position: relative;
   font-family: "Open Sans", sans-serif;
   background-color: white;
+  transition: var(--main-transition);
 }
 .div,
 .select,
 .input {
   border-radius: 5px;
 }
+@media screen and (min-width: 320px) {
+  .div,
+  .select,
+  .input {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .div,
+  .select,
+  .input {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 1360px) {
+  .div,
+  .select,
+  .input {
+    font-size: 18px;
+  }
+}
+
 .div:hover,
 .div:focus {
-  border: 1px solid #1a73e8;
+  border: 1px solid var(--secondary-color);
 }
 .div:hover .label,
 .div:focus .label {
-  color: #1a73e8;
+  color: var(--secondary-color);
 }
 .select {
   font-family: inherit;
   padding: 5px;
   border: none;
   outline: none;
+  background-color: white;
+}
+.label {
+  transition: var(--main-transition);
 }
 .input {
   font-family: inherit;
@@ -33,6 +62,6 @@
 
 .label::before {
   content: "|";
-  font-size: 14px;
+  font-size: 18px;
   display: inline-block;
 }
